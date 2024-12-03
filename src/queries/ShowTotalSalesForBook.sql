@@ -1,1 +1,1 @@
-SELECT * FROM book WHERE book_title = {bookTitle};
+SELECT total_sold FROM book WHERE title = {bookTitle};

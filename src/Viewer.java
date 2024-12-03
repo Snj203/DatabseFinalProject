@@ -10,9 +10,10 @@ import javax.swing.table.DefaultTableModel;
 public class Viewer {
 
     private HashMap<String,Object> containerComponents;
-    private JTextArea inputArea;
+    private JTextArea queryInputArea;
 
-    private JButton inputButton;
+    private JTable table;
+
 
     public Viewer(){
         containerComponents = new HashMap<>();
@@ -24,21 +25,22 @@ public class Viewer {
         int buttonHeight = 75;
         int buttonWidth = 175;
 
-        String [] buttonNames = new String[]{"DoCurrentQuerry","TotalSalesForBook","ActiveCustomers","FindNBestSellersBooks"
+        String [] buttonNames = new String[]{"DoCurrentQuery","TotalSalesForBook","ActiveCustomers","FindNBestSellersBooks"
                 ,"NBestAuthorInSales","NBestCustomers","NLowStockBooks","NLatestOrders","TotalRevenue","NoPurchaseCustomers"};
 
 
         Controller controller = new Controller(this);
 
-        JTable table = new JTable();
+        table = new JTable();
 
         JScrollPane spTable = new JScrollPane(table);
         spTable.setBounds(0, 10, 800, 500);
 
-        JTextArea queryInputArea = new JTextArea();
-        queryInputArea.setText("Write new current querry...");
+        queryInputArea = new JTextArea();
+        queryInputArea.setText("Write new current query...");
         queryInputArea.setLineWrap(true);
         queryInputArea.setWrapStyleWord(true);
+        queryInputArea.setTabSize(4);
 
         JScrollPane spText = new JScrollPane(queryInputArea);
         spText.setBounds(0, 510, 800, 250);
@@ -51,12 +53,17 @@ public class Viewer {
         initDB.setBounds(900,710,75,50);
         initDB.addActionListener(controller);
 
+        JButton drop = new JButton("Drop");
+        drop.setBounds(990,710,75,50);
+        drop.addActionListener(controller);
+
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.add(spTable);
         panel.add(spText);
         panel.add(queryInputSubmitButton);
         panel.add(initDB);
+        panel.add(drop);
 
         for(int i = 0; i < buttonNames.length;i++){
             JButton bt = new JButton(buttonNames[i]);
@@ -77,5 +84,12 @@ public class Viewer {
         frame.setVisible(true);
     }
 
+    public String getQuerryInput(){
+        System.out.println(queryInputArea.getText());
+        return queryInputArea.getText();
+    }
 
+    public void setNewTableModel(DefaultTableModel model) {
+        table.setModel(model);
+    }
 }
