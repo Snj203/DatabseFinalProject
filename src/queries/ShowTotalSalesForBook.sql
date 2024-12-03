@@ -1,0 +1,1 @@
+SELECT * FROM book WHERE book_title = {bookTitle};
