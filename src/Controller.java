@@ -60,6 +60,18 @@ public class Controller implements ActionListener {
             case("SubmitAddOrder"):
                 model.submitAddOrder();
                 break;
+            case("RemoveOrder"):
+                model.removeSmth("Order");
+                break;
+            case("RemoveBook"):
+                model.removeSmth("Book");
+                break;
+            case("RemoveCustomer"):
+                model.removeSmth("Customer");
+                break;
+            case("RemoveAuthor"):
+                model.removeSmth("Author");
+                break;
             case("Save"):
                 model.saveNewQuery();
                 break;

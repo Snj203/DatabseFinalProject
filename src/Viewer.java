@@ -30,11 +30,12 @@ public class Viewer {
         int buttonStartY = 10;
         int buttonXOffset = 25;
         int buttonYOffset = 10;
-        int buttonHeight = 75;
+        int buttonHeight = 50;
         int buttonWidth = 175;
 
         String [] buttonNames = new String[]{"DoCurrentQuery","TotalSalesForBook","ActiveCustomers","FindNBestSellersBooks"
-                ,"NBestAuthorInSales","NBestCustomers","NLowStockBooks","NLatestOrders","TotalRevenue","NoPurchaseCustomers","AddBook","AddCustomer","AddOrder","AddAuthor"};
+                ,"NBestAuthorInSales","NBestCustomers","NLowStockBooks","NLatestOrders","TotalRevenue","NoPurchaseCustomers",
+                "AddBook","AddCustomer","AddOrder","AddAuthor","RemoveOrder","RemoveBook","RemoveCustomer","RemoveAuthor"};
 
 
         Controller controller = new Controller(this);

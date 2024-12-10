@@ -19,7 +19,7 @@ CREATE TABLE customer (
                           id SERIAL PRIMARY KEY,
                           name VARCHAR(255) NOT NULL,
                           email VARCHAR(255) UNIQUE NOT NULL,
-                          total_bought INT DEFAULT 0
+                          total_bought INT DEFAULT 0 NOT NULL
 
 );
 
@@ -56,5 +56,5 @@ VALUES
 
 INSERT INTO "order" (customer_id,book_id,quantity,total_price)
 VALUES
-    (1,1,2, 45.98),
-    (2,2,3, 31.94);
+    (1,1,0, 45.98),
+    (2,2,0, 31.94);

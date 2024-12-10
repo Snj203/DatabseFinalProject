@@ -76,6 +76,12 @@ public class Model {
         qService.executeQuery(filePath,viewer.getAddOrderField());
         viewer.toggleAddOrderFrame();
     }
+    public void removeSmth(String str){
+        String placeholder = "{placeholder}";
+        String replacer = JOptionPane.showInputDialog(str + " ID");
+        String filePath = new String("src/queries/Remove" + str + ".sql");
+        qService.executeQuery(filePath,replacer,placeholder);
+    }
 
     public void saveNewQuery(){
         String filePath = new String("src/queries/curQuery.sql");
