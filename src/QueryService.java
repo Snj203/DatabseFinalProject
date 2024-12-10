@@ -10,7 +10,12 @@ import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
 public class QueryService {
-//    public static final String url = "jdbc:postgresql://localhost:5432/University";
+
+    /**
+     * Class responsible for executing queries
+     * contains connection setting for database.
+     * */
+
     public static final String url = "jdbc:postgresql://localhost:5432/BookStore";
     public static final String username = "postgres";
     public static final String password = "qwerty123";
@@ -23,7 +28,14 @@ public class QueryService {
         this.viewer = viewer;
         sb = new StringBuilder();
     }
-    /* --- */
+
+    /**
+     * Method to modify queries that will have only
+     * one managed attribute
+     * @param filePath The File Path to query .sql file
+     * @param value Value changed by user
+     * @param placeholder The placeholder for that value in .sql file
+     */
 
     public void executeQuery(String filePath,String value, String placeholder){
         String query = loadQueryFromFile(filePath);
@@ -31,10 +43,24 @@ public class QueryService {
         doQuery(query);
     }
 
+    /**
+     *  Utility Method that allows to provide custom number and length modification to prepared queries
+     *  while now having lots of repeated code
+     *  Method it self just gets query as String and sends it to doQuery Method
+     * @param filePath The File Path to query .sql file
+     */
+
     public void executeQuery(String filePath){
         String query = loadQueryFromFile(filePath);
         doQuery(query);
     }
+
+    /**
+     * Method to modify queries with multiple changes from user
+     * or/and queries that create objects in database.
+     * @param filePath The File Path to query .sql file
+     * @param replacers Value given by user
+     */
     public void executeQuery(String filePath,String[] replacers){
         String query = loadQueryFromFile(filePath);
         for(int i= 0; i < replacers.length;i++){
@@ -45,6 +71,12 @@ public class QueryService {
         doQuery(query);
     }
 
+    /**
+     * Method to execute final query
+     * Establishes connection to the database,
+     * Here also gui displaying table method is being called
+     * @param query A String representation of a query
+     */
     private void doQuery(String query){
         Connection connection = null;
         Statement statement = null;
@@ -52,29 +84,35 @@ public class QueryService {
         try {
 
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Соединение установлено!");
+            System.out.println("Connected");
 
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             updateTableFromResultSet(resultSet);
 
         }catch (SQLException e) {
-            System.out.println("Ошибка выполнения SQL: " + e.getMessage());
+            System.out.println("Error SQL: " + e.getMessage());
 
         } finally {
             try {
                 if (statement != null) statement.close();
                 if (connection != null) connection.close();
             } catch (SQLException e) {
-                System.out.println("Ошибка закрытия ресурсов: " + e.getMessage());
+                System.out.println("Closing Error: " + e.getMessage());
             }
         }
     }
 
-    private static String loadQueryFromFile(String filename)  {
+    /**
+     * Method responsible for taking query as a String
+     * from provided filePath
+     * @param filePath The file path to sql query
+     * @return A String representation of an sql query
+     */
+    private static String loadQueryFromFile(String filePath)  {
         StringBuilder query = new StringBuilder();
         try{
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
                 query.append(line).append("\n");
@@ -86,6 +124,10 @@ public class QueryService {
         return query.toString();
     }
 
+    /**
+     * Method responsible for proper displaying of sql query result set
+     * @param resultSet An output from sql query
+     */
     private void updateTableFromResultSet(ResultSet resultSet){
         DefaultTableModel model = null;
         try{

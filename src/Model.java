@@ -5,6 +5,13 @@ import javax.swing.JOptionPane;
 
 public class Model {
 
+    /**
+     * Class responsible for reacting to data changes.
+     * Basically not containing any programm information
+     * Dispatches file pathes to prepared sql statements
+     * and any other necessary information to query service
+     * also responsible for saving custom queries from user
+     */
     private Viewer viewer;
     QueryService qService;
 
@@ -83,6 +90,18 @@ public class Model {
         qService.executeQuery(filePath,replacer,placeholder);
     }
 
+    public void replenishBook(){
+        String [] replacers = new String[2];
+        replacers[0] = JOptionPane.showInputDialog("Book Id: ");
+        replacers[1] = JOptionPane.showInputDialog("Quantity: ");
+        String filePath = new String("src/queries/ReplenishBook.sql");
+        qService.executeQuery(filePath,replacers);
+    }
+
+    /**
+     * Gets query as String from viewer
+     * and stores it to file
+     * */
     public void saveNewQuery(){
         String filePath = new String("src/queries/curQuery.sql");
         String newQuery = viewer.getQuerryInput();

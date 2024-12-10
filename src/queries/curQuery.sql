@@ -1,1 +1,1 @@
-SELECT * FROM author
+SELECT * FROM book

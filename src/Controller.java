@@ -2,11 +2,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener {
+    /**
+     * The Controller class is responsible for handling user actions, such as button clicks
+     * The class implements the ActionListener interface,
+     * allowing it to listen for user actions and execute the corresponding actions in the application.
+     *
+     */
     private Model model;
 
     public Controller(Viewer viewer){
         model = new Model(viewer);
     }
+
+    /**
+     * Called when an action is performed by the user .
+     * Calls methods in model to properly react to user actions.
+     * @param e The ActionEvent that triggered this method call, containing the action command.
+     */
 
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -71,6 +83,9 @@ public class Controller implements ActionListener {
                 break;
             case("RemoveAuthor"):
                 model.removeSmth("Author");
+                break;
+            case("ReplenishBook"):
+                model.replenishBook();
                 break;
             case("Save"):
                 model.saveNewQuery();
