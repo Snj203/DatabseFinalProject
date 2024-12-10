@@ -21,8 +21,44 @@ public class Controller implements ActionListener {
             case("ActiveCustomers"):
                 model.showActiveCustomers();
                 break;
+            case("FindNBestSellersBooks"):
+                model.showNSmth("ShowBestSellersBooks");
+                break;
+            case("NBestAuthorInSales"):
+                model.showNSmth("ShowBestSellingAuthors");
+                break;
+            case("NBestCustomers"):
+                model.showNSmth("ShowBestCustomers");
+                break;
+            case("NLowStockBooks"):
+                model.showNSmth("ShowLowStockBooks");
+                break;
+            case("NLatestOrders"):
+                model.showNSmth("ShowLatestOrders");
+                break;
+            case("TotalRevenue"):
+                model.showTotalRevenue();
+                break;
             case("NoPurchaseCustomers"):
                 model.showNotActiveCustomers();
+                break;
+            case("AddAuthor"):
+                model.addAuthor();
+                break;
+            case("AddBook"):
+                model.startAddBook();
+                break;
+            case("SubmitAddBook"):
+                model.submitAddBook();
+                break;
+            case("AddCustomer"):
+                model.addCustomer();
+                break;
+            case("AddOrder"):
+                model.addOrder();
+                break;
+            case("SubmitAddOrder"):
+                model.submitAddOrder();
                 break;
             case("Save"):
                 model.saveNewQuery();
@@ -30,7 +66,7 @@ public class Controller implements ActionListener {
             case("InitDB"):
                 model.fillDB();
                 break;
-            case("Drop"):
+            case("DropDB"):
                 model.drop();
                 break;
             default:

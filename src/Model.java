@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Model {
@@ -12,28 +13,68 @@ public class Model {
         qService = new QueryService(viewer);
     }
 
-    public void showActiveCustomers(){
-        String placeholder = "{bought_count}";
-        String boughtCount = JOptionPane.showInputDialog("Input how many books bought");
-        String filePath = new String("src/queries/SelectActiveCustomers.sql");
-        qService.executeQuery(filePath,boughtCount,placeholder);
+    public void doCurQuery(){
+        String filePath = new String("src/queries/curQuery.sql");
+        qService.executeQuery(filePath);
     }
 
     public void showNotActiveCustomers(){
         String filePath = new String("src/queries/SelectNotActiveCustomers.sql");
         qService.executeQuery(filePath);
     }
-
+    public void showNSmth(String fileName){
+        String placeholder = "{placeholder}";
+        String replacer = JOptionPane.showInputDialog("");
+        String filePath = new String("src/queries/" + fileName + ".sql");
+        qService.executeQuery(filePath,replacer,placeholder);
+    }
     public void showTotalSalesForBook(){
         String placeholder = "{bookTitle}";
-        String book = JOptionPane.showInputDialog("Input Book");
+        String book = JOptionPane.showInputDialog("Input Book Name");
         String filePath = new String("src/queries/ShowTotalSalesForBook.sql");
         qService.executeQuery(filePath,book,placeholder);
     }
-
-    public void doCurQuery(){
-        String filePath = new String("src/queries/curQuery.sql");
+    public void showActiveCustomers(){
+        String placeholder = "{bought_count}";
+        String boughtCount = JOptionPane.showInputDialog("Enter how many books");
+        String filePath = new String("src/queries/SelectActiveCustomers.sql");
+        qService.executeQuery(filePath,boughtCount,placeholder);
+    }
+    public void showTotalRevenue(){
+        String filePath = new String("src/queries/ShowTotalRevenue.sql");
         qService.executeQuery(filePath);
+    }
+
+    public void addAuthor(){
+        String placeholder = "{placeholder}";
+        String replacer = JOptionPane.showInputDialog("Enter Author Name");
+        String filePath = new String("src/queries/AddAuthor.sql");
+        qService.executeQuery(filePath,replacer,placeholder);
+    }
+
+    public void startAddBook(){
+        viewer.toggleAddBookFrame();
+    }
+    public void submitAddBook(){
+        String filePath = new String("src/queries/AddBook.sql");
+        qService.executeQuery(filePath,viewer.getAddBookField());
+        viewer.toggleAddBookFrame();
+    }
+    public void addCustomer(){
+        String[]replacers = new String[2];
+        replacers[0] = JOptionPane.showInputDialog("Input Name");
+        replacers[1] = JOptionPane.showInputDialog("Input Email");
+        String filePath = new String("src/queries/AddCustomer.sql");
+        qService.executeQuery(filePath,replacers);
+    }
+    public void addOrder(){
+        viewer.toggleAddOrderFrame();
+    }
+
+    public void submitAddOrder(){
+        String filePath = new String("src/queries/AddOrder.sql");
+        qService.executeQuery(filePath,viewer.getAddOrderField());
+        viewer.toggleAddOrderFrame();
     }
 
     public void saveNewQuery(){

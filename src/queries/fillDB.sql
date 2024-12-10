@@ -1,6 +1,6 @@
 CREATE TABLE author (
                         id SERIAL PRIMARY KEY,
-                        name VARCHAR(255) NOT NULL,
+                        name VARCHAR(255) NOT NULL UNIQUE,
                         total_sold INT DEFAULT 0
 );
 
@@ -10,7 +10,9 @@ CREATE TABLE book (
                       genre VARCHAR(100),
                       price DECIMAL(10, 2) NOT NULL,
                       total_sold INT DEFAULT 0,
-                      stock INT DEFAULT 100
+                      stock INT DEFAULT 100,
+                      author_name VARCHAR(255),
+                      FOREIGN KEY (author_name) REFERENCES author(name)
 );
 
 CREATE TABLE customer (
@@ -18,32 +20,20 @@ CREATE TABLE customer (
                           name VARCHAR(255) NOT NULL,
                           email VARCHAR(255) UNIQUE NOT NULL,
                           total_bought INT DEFAULT 0
+
 );
 
 CREATE TABLE "order" (
                          id SERIAL PRIMARY KEY,
                          customer_id INT NOT NULL,
+                         book_id INT NOT NULL,
+                         quantity INT NOT NULL DEFAULT 1,
                          order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                          total_price DECIMAL(10, 2) NOT NULL,
-                         FOREIGN KEY (customer_id) REFERENCES customer(id)
+                         FOREIGN KEY (customer_id) REFERENCES customer(id),
+                         FOREIGN KEY (book_id) REFERENCES book(id)
 );
 
-CREATE TABLE Book_Author (
-                             book_id INT NOT NULL,
-                             author_id INT NOT NULL,
-                             PRIMARY KEY (book_id, author_id),
-                             FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
-                             FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Book_Order (
-                            book_id INT NOT NULL,
-                            order_id INT NOT NULL,
-                            quantity INT NOT NULL DEFAULT 1,
-                            PRIMARY KEY (book_id, order_id),
-                            FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
-                            FOREIGN KEY (order_id) REFERENCES "order"(id) ON DELETE CASCADE
-);
 
 INSERT INTO author (name)
 VALUES
@@ -52,31 +42,19 @@ VALUES
     ('Isaac Asimov'),
     ('Agatha Christie');
 
-INSERT INTO book (title, genre, price)
+INSERT INTO book (title, genre, price,author_name)
 VALUES
-    ('Harry Potter and the Sorcerer Stone', 'Fantasy', 19.99),
-    ('A Game of Thrones', 'Fantasy', 25.99),
-    ('Foundation', 'Science Fiction', 22.50),
-    ('Murder on the Orient Express', 'Mystery', 12.99);
-
-INSERT INTO book_Author (book_id, author_id)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4);
+    ('Harry Potter and the Sorcerer Stone', 'Fantasy', 19.99,'J.K. Rowling'),
+    ('A Game of Thrones', 'Fantasy', 25.99,'George R.R. Martin'),
+    ('Foundation', 'Science Fiction', 22.50,'Isaac Asimov'),
+    ('Murder on the Orient Express', 'Mystery', 12.99,'Agatha Christie');
 
 INSERT INTO customer (name, email)
 VALUES
     ('John Doe', 'john.doe@example.com'),
     ('Alice Johnson', 'alice.johnson@example.com');
 
-INSERT INTO "order" (customer_id, total_price)
+INSERT INTO "order" (customer_id,book_id,quantity,total_price)
 VALUES
-    (1, 45.98),
-    (2, 31.94);
-
-INSERT INTO Book_Order (book_id, order_id, quantity)
-VALUES
-    (1, 1, 2),
-    (2, 1, 1);
+    (1,1,2, 45.98),
+    (2,2,3, 31.94);

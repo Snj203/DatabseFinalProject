@@ -15,10 +15,13 @@ public class QueryService {
     public static final String username = "postgres";
     public static final String password = "qwerty123";
 
+    private StringBuilder sb;
+
     private Viewer viewer;
 
     public QueryService(Viewer viewer){
         this.viewer = viewer;
+        sb = new StringBuilder();
     }
     /* --- */
 
@@ -30,6 +33,15 @@ public class QueryService {
 
     public void executeQuery(String filePath){
         String query = loadQueryFromFile(filePath);
+        doQuery(query);
+    }
+    public void executeQuery(String filePath,String[] replacers){
+        String query = loadQueryFromFile(filePath);
+        for(int i= 0; i < replacers.length;i++){
+            sb.setLength(0);
+            sb.append("{placeholder").append(i).append("}");
+            query = query.replace(sb, "'" + replacers[i] + "'");
+        }
         doQuery(query);
     }
 

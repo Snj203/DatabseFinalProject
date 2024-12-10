@@ -6,6 +6,7 @@ Tables :
                     name
                     email
                     total_bought
+                    order_id
         Book
                 Vals:
                     id
@@ -14,23 +15,17 @@ Tables :
                     price
                     total_sold
                     stock
+                    author_name
         Author
                 Vals:
                     id
                     name
-                    total_books_sold
+                    total_sold
         Order
                 Vals:
                     id
                     customer_id
+                    book_id
+                    quantity
                     order_date
                     total_price
-        Book_Author
-                Vals:
-                    book_id
-                    author_id
-        Book_Order
-                Vals:
-                    book_id
-                    order_id
-                    quantity
