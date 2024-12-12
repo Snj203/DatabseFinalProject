@@ -1,0 +1,28 @@
+## App guide
+
+## Intro:
+
+Left Top Corner - Displaying the result of last query.
+Left Bottom Corner - Text field for your custom query.
+
+## Buttons:
+DoCurrentQuery - executes latest custom query written.
+TotalSalseForBook - shows total sales by input book name.
+ActiveCustomer - shows customers who bought books more than input number.
+FindNBestSellersBooks - shows N best books by total sales.
+NBestAuthorInSales - shows N authors by total books sold.
+NBestCustomers - shows N customers by total books bought.
+NLowStockBooks - shows N books by stock left in ascending order.
+NLatestOrders - shows N latest orders.
+TotalRevenue - shows total income from all orders.
+NoPurchaseCustomers - shows customers with 0 bought books.
+Add Book/Customer/Order/Author - adds new entities to database from user input.
+Remove Book/Customer/Order/Author - removes entities from database from user input.
+ReplenishBook - replenishes chosen book by N quantity.
+
+## Other Buttons:
+
+Save - saves your current written custom query.
+InitDB - creates tables and few inputs in them, but NOT DATABASE.
+DropDB - drops tables, that were created by InitDB, only tables.
+

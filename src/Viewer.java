@@ -14,6 +14,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class Viewer {
 
+    /**
+     * The Viewer class is responsible for displaying content to the user, including documents and images,
+     * and providing a rich editing interface for interacting with the content.
+     */
+
     private HashMap<String,Object> containerComponents;
     private JTextArea queryInputArea;
 
@@ -23,6 +28,9 @@ public class Viewer {
     private JFrame addOrderFrame;
     private JFrame frame;
 
+    /**
+     * Constructor of Viewer object and it initializes all necessary components.
+     */
     public Viewer(){
         containerComponents = new HashMap<>();
 
@@ -30,11 +38,12 @@ public class Viewer {
         int buttonStartY = 10;
         int buttonXOffset = 25;
         int buttonYOffset = 10;
-        int buttonHeight = 75;
+        int buttonHeight = 50;
         int buttonWidth = 175;
 
         String [] buttonNames = new String[]{"DoCurrentQuery","TotalSalesForBook","ActiveCustomers","FindNBestSellersBooks"
-                ,"NBestAuthorInSales","NBestCustomers","NLowStockBooks","NLatestOrders","TotalRevenue","NoPurchaseCustomers","AddBook","AddCustomer","AddOrder","AddAuthor"};
+                ,"NBestAuthorInSales","NBestCustomers","NLowStockBooks","NLatestOrders","TotalRevenue","NoPurchaseCustomers",
+                "AddBook","AddCustomer","AddOrder","AddAuthor","RemoveOrder","RemoveBook","RemoveCustomer","RemoveAuthor","ReplenishBook"};
 
 
         Controller controller = new Controller(this);
@@ -181,6 +190,8 @@ public class Viewer {
         containerComponents.put("quantity",quantityField);
 
     }
+    /** Toggle vision of Book adding frame*/
+
     public void toggleAddBookFrame(){
         ((JTextField)(containerComponents.get("genreBook"))).setText("");
         ((JTextField)(containerComponents.get("titleBook"))).setText("");
@@ -192,6 +203,9 @@ public class Viewer {
             addBookFrame.setVisible(true);
         }
     }
+
+    /** Toggle vision of Order adding frame*/
+
     public void toggleAddOrderFrame(){
         ((JTextField)(containerComponents.get("customerId"))).setText("");
         ((JTextField)(containerComponents.get("bookId"))).setText("");
@@ -202,6 +216,9 @@ public class Viewer {
             addOrderFrame.setVisible(true);
         }
     }
+    /** Returns an array from book adding frame text fields
+     *  @return The String[] for creating a new book object
+     * */
     public String[] getAddBookField(){
         String[] fields = new String[4];
         fields[0] = ((JTextField)(containerComponents.get("titleBook"))).getText();
@@ -210,6 +227,10 @@ public class Viewer {
         fields[3] = ((JTextField)(containerComponents.get("authorBook"))).getText();
         return fields;
     }
+
+    /** Returns an array from order adding frame text fields
+     *  @return The String[] for creating a new order object
+     * */
     public String[] getAddOrderField(){
         String[] fields = new String[3];
         fields[0] = ((JTextField)(containerComponents.get("customerId"))).getText();
@@ -217,11 +238,15 @@ public class Viewer {
         fields[2] = ((JTextField)(containerComponents.get("quantity"))).getText();
         return fields;
     }
+    /** Returns a String custom query text area
+     *  @return The String to store a new query
+     * */
     public String getQuerryInput(){
         System.out.println(queryInputArea.getText());
         return queryInputArea.getText();
     }
-
+    /** Method to renew table model, that displays query output.
+     * */
     public void setNewTableModel(DefaultTableModel model) {
         table.setModel(model);
     }

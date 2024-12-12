@@ -1,11 +1,9 @@
 
 INSERT INTO "order" (customer_id, book_id, quantity,total_price)
 VALUES
-    ({placeholder0},{placeholder1},{placeholder2},0);
+    ({placeholder0},{placeholder1},{placeholder2},(SELECT SUM(price) FROM book WHERE id = {placeholder1}) * {placeholder2});
 
-UPDATE "order"
-SET total_price = (SELECT SUM(price) * {placeholder2} FROM book)
-WHERE id = {placeholder1};
+
 
 UPDATE customer
 SET total_bought = total_bought + {placeholder2}
