@@ -1,1 +1,1 @@
-DROP TABLE customer,book,author,"order";
+DROP TABLE customer,book,author,"order" CASCADE;
